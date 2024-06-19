@@ -1,2 +1,11 @@
-This is a Fun wee project to replicate a linear algebra computing library like Numpy in Java
-I am still learning Java and this is just a small side project for me any contributions is highly welcome
+# **Java Linear Algebra Library**
+
+This is a **fun project** to replicate a linear algebra computing library like **NumPy** in **Java**.
+
+## **About**
+
+I am currently **learning Java**, and this is a small side project for me. **Any contributions are highly welcome!**
+
+## **Contributing**
+
+Feel free to **fork** this repository, submit **pull requests**, or open **issues** to help improve this project.
