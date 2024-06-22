@@ -27,6 +27,11 @@ public class JArray{
         this.jarray = new ArrayList<double[]>();
         this.jarray.add(jarray);
     }
+    // public JArray(ArrayList<double[]> jarray){
+    //     for (double[] x: jarray){
+    //         jarray.add(Arrays.copyOf(x, x.length));
+    //     }
+    // }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -115,6 +120,48 @@ public class JArray{
         }
         return result;
     }
+    public JArray flatten(){
+        int row_length = this.jarray.size();
+        int column_length = this.jarray.get(0).length;
+        double[] flat_array = new double[row_length * column_length];
+        int i = 0;
+        for (double[] new_array : this.jarray){
+            for (int m = 0;m < column_length;m ++){
+                flat_array[i] = new_array[m];
+                i += 1;
+            }
+        }
+        return new JArray(flat_array);
+    }
+    public JArray reshape(int x, int y){
+        int row_length = this.jarray.size();
+        int column_length = this.jarray.get(0).length;
+        if ((row_length * column_length) != (x * y)){
+            throw new ArithmeticException("Invalid shape configuration");
+        }else{
+            double[][] new_array = new double[x][];
+            double[] each_array;
+            int i = 0;
+            final int y_new = y;
+            if (x == 1){
+                return this.flatten();
+            }
+            double [][] image_array = this.flatten().toDouble(1);
+            for(int k = 0; k < x; k++){
+                each_array = new double[y_new];
+                int m = 0;
+                for (int j = i;j < y; j++){
+                    each_array[m] = image_array[0][j];
+                    m += 1;
+                }
+                new_array[k] = each_array;
+                i += y_new;
+                y += y_new;
+            }
+            return new JArray(new_array); 
+        }
+    }
+    
     public double[] shape() {
         double rows = jarray.size();
         double columns = jarray.isEmpty() ? 0 : jarray.get(0).length;
