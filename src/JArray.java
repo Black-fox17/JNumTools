@@ -162,6 +162,8 @@ public class JArray{
         }
     }
     
+    // public JArray add(JArray other){ working in this
+    // } 
     public double[] shape() {
         double rows = jarray.size();
         double columns = jarray.isEmpty() ? 0 : jarray.get(0).length;
