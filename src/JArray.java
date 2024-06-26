@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+// 15 June 2024 18:46pm GMT\(\+1\)
 public class JArray{
     protected ArrayList<double[]> jarray;
     public JArray(){
@@ -92,7 +93,8 @@ public class JArray{
         }
         return new JArray(result);
     }
-
+    //end
+    // 18 June 2024 18:46pm GMT\(\+1\)
     public JArray linspace(int start,int stop, int nums){
         double step = (double)(stop - start) / (double)nums;
         double[] samples = new double[nums];
@@ -120,6 +122,8 @@ public class JArray{
         }
         return result;
     }
+    //end
+    // 23 June 2024 18:46pm GMT\(\+1\)
     public JArray flatten(){
         int row_length = this.jarray.size();
         int column_length = this.jarray.get(0).length;
@@ -161,9 +165,171 @@ public class JArray{
             return new JArray(new_array); 
         }
     }
-    
-    // public JArray add(JArray other){ working in this
-    // } 
+    //end
+    // 26 June 2024 18:46pm GMT(+1)
+    public JArray add(int other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = value_a[i][k] + other;
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }
+    public JArray sub(int other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = value_a[i][k] - other;
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }
+    public JArray div(int other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = value_a[i][k] / other;
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+    public JArray add(JArray other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        double[][] value_b = other.toDouble((int) other.shape()[0]);
+        if (value_a.length != value_b.length){
+            throw new ArithmeticException("Invalid Shape Configuration");
+        }
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                if (value_a[i].length != value_b[i].length){
+                    throw new ArithmeticException("Invalid shape configuration");
+                }
+                double answer = value_a[i][k] + value_b[i][k];
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    } 
+    public JArray sub(JArray other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        double[][] value_b = other.toDouble((int) other.shape()[0]);
+        if (value_a.length != value_b.length){
+            throw new ArithmeticException("Invalid Shape Configuration");
+        }
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                if (value_a[i].length != value_b[i].length){
+                    throw new ArithmeticException("Invalid shape configuration");
+                }
+                double answer = value_a[i][k] - value_b[i][k];
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }
+    public JArray mul(int other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = value_a[i][k] * other;
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    } 
+    public JArray div(JArray other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        double[][] value_b = other.toDouble((int) other.shape()[0]);
+        if (value_a.length != value_b.length){
+            throw new ArithmeticException("Invalid Shape Configuration");
+        }
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                if (value_a[i].length != value_b[i].length){
+                    throw new ArithmeticException("Invalid shape configuration");
+                }
+                double answer = value_a[i][k] / value_b[i][k];
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    } 
+    public JArray pow(JArray other){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        double[][] value_b = other.toDouble((int) other.shape()[0]);
+        if (value_a.length != value_b.length){
+            throw new ArithmeticException("Invalid Shape Configuration");
+        }
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                if (value_a[i].length != value_b[i].length){
+                    throw new ArithmeticException("Invalid shape configuration");
+                }
+                double answer = Math.pow(value_a[i][k],value_b[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }
+    public JArray mul(JArray other){
+        double[][] a = this.toDouble((int)this.shape()[0]);
+        double[][] b = other.toDouble((int) other.shape()[0]);
+        double[][] result = new double[a.length][b[0].length];
+        for (int i = 0; i < a.length;i++){
+            double[] one_row = new double[b[0].length];
+            int u = 0;
+            for (int k = 0; k < b[0].length; k++){
+                double[] first_row = a[i];
+                int j = 0;
+                double sum = 0;
+                for (double x: first_row){
+                    sum += x * b[j][u];
+                    j += 1;
+                }
+                u += 1;
+                one_row[k] = sum;
+            }
+            result[i] = one_row;
+        }
+        return new JArray(result);
+    } 
+    //end
     public double[] shape() {
         double rows = jarray.size();
         double columns = jarray.isEmpty() ? 0 : jarray.get(0).length;
