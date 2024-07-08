@@ -1,15 +1,14 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
-
+import torch;
 # Data
 arr = [[2, 2, 4, 5, 6, 1, 6, 7, 8]]
 target = [[1, 0, 1, 0, 0, 1, 0, 1, 0]]
 
+test_arr = torch.randn((1000,4000))
+print(test_arr.mean())
+print(test_arr.std())
 # Reshape the data
-test_arr = np.array(arr).reshape(9,1)
-test_target = np.array(target).reshape(-1, 1)
-
-print(test_arr)
 # # Fit the sklearn LinearRegression model
 # model = LinearRegression()
 # model.fit(test_arr, test_target)

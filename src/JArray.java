@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 // 15 June 2024 18:46pm GMT\(\+1\)
 public class JArray{
     protected ArrayList<double[]> jarray;
@@ -337,6 +338,42 @@ public class JArray{
         return new double[] { rows, columns };
     }
 
+    public JArray sample_rand(int N){
+        double[] value_sample = new double[N];
+        Random rand = new Random();
+        double n = 2500;
+        for (int u = 0; u < N; u++){
+            double sum = 0;
+            for(int i = 0; i < n;i ++){
+                double value_rand = rand.nextInt(0,2);
+                sum += value_rand;
+            }
+            double mean  = (sum / n) - 0.5;
+            double result = 2 * Math.sqrt(n) * mean;
+            value_sample[u] = result;
+        }
+        JArray flattened_array = new JArray(value_sample);
+        return flattened_array;
+    }
+
+    public JArray sample_rand(int x,int y){
+        int N = x * y;
+        double[] value_sample = new double[N];
+        Random rand = new Random();
+        double n = 2500;
+        for (int u = 0; u < N; u++){
+            double sum = 0;
+            for(int i = 0; i < n;i ++){
+                double value_rand = rand.nextInt(0,2);
+                sum += value_rand;
+            }
+            double mean  = (sum / n) - 0.5;
+            double result = 2 * Math.sqrt(n) * mean;
+            value_sample[u] = result;
+        }
+        JArray flattened_array = new JArray(value_sample);
+        return flattened_array.reshape(x, y);
+    }
     // Method to calculate the mean of all elements in the 2D array
     public double mean() {
         double totalSum = 0;
@@ -349,6 +386,20 @@ public class JArray{
             }
         }
         return totalCount == 0 ? 0 : totalSum / totalCount;
+    }
+
+    public double std(){
+        int length = (int)this.flatten().shape()[1];
+        double[] one_dim = this.flatten().toDouble(length)[0];
+        double mean = this.mean();
+        double sum = 0;
+        int i = 0;
+        for(double x: one_dim){
+            double result = Math.pow((x - mean),2);
+            sum += result;
+            i += 1;
+        }
+        return sum/i;
     }
     public double[] index(int value){
         double[] array = jarray.get(value);

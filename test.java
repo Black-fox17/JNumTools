@@ -19,14 +19,9 @@ public class test {
 {12,23}};
 
 
-        JArray new_test_b = new JArray(test_b).reshape(2, 4);
-        JArray c = new JArray(new_test);
-        JArray res = c.mul(new_test_b).flatten();
-        Random rand = new Random();
-        double[] n_diist = normal_distribution(200);
-        System.out.println(mean(n_diist));
-        System.out.println(std(n_diist));
-        System.out.println(Arrays.toString(n_diist));
+        JArray test_arr = new JArray().sample_rand(1000,4000);
+        System.out.println(test_arr.mean());
+        System.out.println(test_arr.std());
         // for(int i = 0; i < new_test.length;i++){
         //     double [] new_row = new double[new_test_b[0].length];
         //     int u = 0;
@@ -58,42 +53,42 @@ public class test {
         // System.out.println(model.getBias());
         
     }
-    private static double mean (double[] x){
-        double sum = 0;
-        int i = 0;
-        for(double u : x){
-            sum += u;
-            i += 1;
-        }
-        return sum/ i;
-    }
-    private static double std(double[] x){
-        double mean_ans = mean(x);
-        double sum = 0;
-        int i = 0;
-        for (double u: x){
-            double h = Math.pow((u - mean_ans),2);
-            sum += h;
-            i += 1;
-        }
-        return sum / i;
-    }
-    private static double[] normal_distribution(int x){
-        double n = 2500;
-        Random rand = new Random();
-        double[] output = new double[x];
-        int u = 0;
-        for (int m = 0; m < x;m++){
-            double sum = 0;
-            for (int i = 0; i < n; i ++){
-                double t = rand.nextInt(0,2);
-                sum += t;
-            }
-            double mean  = (sum / n) - 0.5;
-            double result = 2 * Math.sqrt(n) * mean;
-            output[u] = result;
-            u += 1;
-        }
-        return output;
-    }
+    // private static double mean (double[] x){
+    //     double sum = 0;
+    //     int i = 0;
+    //     for(double u : x){
+    //         sum += u;
+    //         i += 1;
+    //     }
+    //     return sum/ i;
+    // }
+    // private static double std(double[] x){
+    //     double mean_ans = mean(x);
+    //     double sum = 0;
+    //     int i = 0;
+    //     for (double u: x){
+    //         double h = Math.pow((u - mean_ans),2);
+    //         sum += h;
+    //         i += 1;
+    //     }
+    //     return sum / i;
+    // }
+    // private static double[] normal_distribution(int x){
+    //     double n = 2500;
+    //     Random rand = new Random();
+    //     double[] output = new double[x];
+    //     int u = 0;
+    //     for (int m = 0; m < x;m++){
+    //         double sum = 0;
+    //         for (int i = 0; i < n; i ++){
+    //             double t = rand.nextInt(0,2);
+    //             sum += t;
+    //         }
+    //         double mean  = (sum / n) - 0.5;
+    //         double result = 2 * Math.sqrt(n) * mean;
+    //         output[u] = result;
+    //         u += 1;
+    //     }
+    //     return output;
+    // }
 }
