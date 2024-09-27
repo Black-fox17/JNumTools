@@ -2,12 +2,14 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 import torch;
 # Data
-arr = [[2, 2, 4, 5, 6, 1, 6, 7, 8]]
+arr = [[2, 2, 4],
+       [2,5,2],
+       [9,12,3],
+       [2,5,6]]
 target = [[1, 0, 1, 0, 0, 1, 0, 1, 0]]
 
-test_arr = torch.randn((1000,4000))
-print(test_arr.mean())
-print(test_arr.std())
+arr_np = np.array(arr)
+print(np.var(arr_np,axis = 1))
 # Reshape the data
 # # Fit the sklearn LinearRegression model
 # model = LinearRegression()

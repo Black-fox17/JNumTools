@@ -388,6 +388,74 @@ public class JArray{
         return totalCount == 0 ? 0 : totalSum / totalCount;
     }
 
+    public double[] mean(int axis){
+        int length = (int)this.shape()[0];
+        int width = (int)this.shape()[1];
+        double [] new_array = {0};
+        if (axis == 1){
+            int k = 0;
+            new_array = new double[length];
+            for(double[] x: jarray){
+                JArray test_array = new JArray(x);
+                new_array[k] = test_array.mean();
+                k+=1;
+            }
+        }
+        else if(axis == 0){
+            new_array = new double[width];
+            for(int k = 0;k < width; k ++){
+                double[] decoy_array = new double[length];
+                int m = 0;
+                for(double[] x: jarray){
+                    decoy_array[m] = x[k];
+                    m += 1;
+                }
+                JArray decoy = new JArray(decoy_array);
+                new_array[k] = decoy.mean();
+            }
+        }
+        return new_array;
+    }
+
+    public double var(){
+        int length = (int)this.flatten().shape()[1];
+        double[] one_dim = this.flatten().toDouble(length)[0];
+        double mean = this.mean();
+        double result_value = 0;
+        for (double x: one_dim){
+            result_value += (Math.pow((x - mean),2));
+        }
+        return result_value / length;
+    }
+
+    public double[] var(int axis){
+        int length = (int)this.shape()[0];
+        int width = (int)this.shape()[1];
+        double [] new_array = {0};
+        if (axis == 1){
+            int k = 0;
+            new_array = new double[length];
+            for(double[] x: jarray){
+                JArray test_array = new JArray(x);
+                new_array[k] = test_array.var();
+                k+=1;
+            }
+        }
+        else if(axis == 0){
+            new_array = new double[width];
+            for(int k = 0;k < width; k ++){
+                double[] decoy_array = new double[length];
+                int m = 0;
+                for(double[] x: jarray){
+                    decoy_array[m] = x[k];
+                    m += 1;
+                }
+                JArray decoy = new JArray(decoy_array);
+                new_array[k] = decoy.var();
+            }
+        }
+        return new_array;
+    }
     public double std(){
         int length = (int)this.flatten().shape()[1];
         double[] one_dim = this.flatten().toDouble(length)[0];
@@ -399,8 +467,303 @@ public class JArray{
             sum += result;
             i += 1;
         }
-        return sum/i;
+        return Math.sqrt(sum/i);
     }
+
+    public double[] std(int axis){
+        int length = (int)this.shape()[0];
+        int width = (int)this.shape()[1];
+        double [] new_array = {0};
+        if (axis == 1){
+            int k = 0;
+            new_array = new double[length];
+            for(double[] x: jarray){
+                JArray test_array = new JArray(x);
+                new_array[k] = test_array.std();
+                k+=1;
+            }
+        }
+        else if(axis == 0){
+            new_array = new double[width];
+            for(int k = 0;k < width; k ++){
+                double[] decoy_array = new double[length];
+                int m = 0;
+                for(double[] x: jarray){
+                    decoy_array[m] = x[k];
+                    m += 1;
+                }
+                JArray decoy = new JArray(decoy_array);
+                new_array[k] = decoy.std();
+            }
+        }
+        return new_array;
+    }
+
+    public double max(){
+        int length = (int)this.flatten().shape()[1];
+        double[] one_dim = this.flatten().toDouble(length)[0];
+        double largest_element = one_dim[0];
+        for (double x: one_dim){
+            if (largest_element < x){
+                largest_element = x;
+            }
+        }
+        return largest_element;
+
+    }
+
+    public double[] max(int axis){
+        int length = (int)this.shape()[0];
+        int width = (int)this.shape()[1];
+        double [] new_array = {0};
+        if (axis == 1){
+            int k = 0;
+            new_array = new double[length];
+            for(double[] x: jarray){
+                JArray test_array = new JArray(x);
+                new_array[k] = test_array.max();
+                k+=1;
+            }
+        }
+        else if(axis == 0){
+            new_array = new double[width];
+            for(int k = 0;k < width; k ++){
+                double[] decoy_array = new double[length];
+                int m = 0;
+                for(double[] x: jarray){
+                    decoy_array[m] = x[k];
+                    m += 1;
+                }
+                JArray decoy = new JArray(decoy_array);
+                new_array[k] = decoy.max();
+            }
+        }
+        return new_array;
+    }
+    
+    public double min(){
+        int length = (int)this.flatten().shape()[1];
+        double[] one_dim = this.flatten().toDouble(length)[0];
+        double smallest_element = one_dim[0];
+        for (double x: one_dim){
+            if (smallest_element > x){
+                smallest_element = x;
+            }
+        }
+        return smallest_element;
+
+    }
+
+    public double[] min(int axis){
+        int length = (int)this.shape()[0];
+        int width = (int)this.shape()[1];
+        double [] new_array = {0};
+        if (axis == 1){
+            int k = 0;
+            new_array = new double[length];
+            for(double[] x: jarray){
+                JArray test_array = new JArray(x);
+                new_array[k] = test_array.min();
+                k+=1;
+            }
+        }
+        else if(axis == 0){
+            new_array = new double[width];
+            for(int k = 0;k < width; k ++){
+                double[] decoy_array = new double[length];
+                int m = 0;
+                for(double[] x: jarray){
+                    decoy_array[m] = x[k];
+                    m += 1;
+                }
+                JArray decoy = new JArray(decoy_array);
+                new_array[k] = decoy.min();
+            }
+        }
+        return new_array;
+    }
+    
+    public JArray sin(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.sin(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    } 
+    public JArray cos(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.cos(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray tan(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.tan(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray tanh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.tanh(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray sinh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.sinh(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray cosh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.cosh(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arcsin(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.asin(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arccos(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.acos(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arctan(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.atan(value_a[i][k]);
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arcsinh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer =Math.log(value_a[i][k] + Math.sqrt(value_a[i][k] * value_a[i][k] + 1));
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arccosh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length]; 
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = Math.log(value_a[i][k] + Math.sqrt(value_a[i][k] * value_a[i][k] - 1));
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    public JArray arctanh(){
+        double[][] value_a = this.toDouble((int)this.shape()[0]);
+        int arr_length = value_a.length;
+        double[][] result = new double[arr_length][];
+        for (int i = 0; i < arr_length;i++){
+            double[] each_array = new double[value_a[i].length];
+            for (int k = 0; k < value_a[i].length;k ++){
+                double answer = 0.5 * Math.log((1 + value_a[i][k]) / (1 - value_a[i][k]));
+                each_array[k] = answer;
+            }
+            result[i] = each_array;
+        }
+        return new JArray(result);
+    }  
+
+    // public JArray index(int x){
+    // }
     public double[] index(int value){
         double[] array = jarray.get(value);
         return array; 
